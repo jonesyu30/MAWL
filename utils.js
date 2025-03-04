@@ -19,3 +19,13 @@ function getName(name){
         return true;
     }
 }
+
+function createRoom(){
+    var peer = new Peer();
+    peer.on('open', function(id) {
+        console.log('My peer ID is: ' + id);
+    });
+}
+function joinRoom(){
+
+}

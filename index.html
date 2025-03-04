@@ -6,6 +6,11 @@
     <title>Welcome to MAWL</title>
     <link rel="stylesheet" href="styles.css">
     <script src="utils.js"></script>
+    <script src="peerFunctions.js"></script>
+    <script type="module">
+        import {Peer} from "https://esm.sh/peerjs@1.5.4?bundle-deps"
+        window.Peer = Peer;
+    </script>
 </head>
 <body>
     <div class="container" id="WelcomeScreen">
@@ -14,11 +19,18 @@
         <div class="input-container">
             <input type="text" placeholder="Input Name" id="name-input">
             <button id="ok-button" onclick="
-                if (getName()){
-                    changeScreen('WelcomeScreen', 'ChooseRoomScreen');
-                }
+                (async()=>{
+                    if (getName()){
+                        changeScreen('WelcomeScreen', 'LoadingScreen');
+                        await createPeer();
+                        changeScreen('LoadingScreen', 'ChooseRoomScreen');
+                    }
+                })()
             ">Okayy</button>
         </div>
+    </div>
+    <div class="container" id="LoadingScreen" style="display: none;">
+        <h1>Creating client...</h1>
     </div>
     <div class="container" id="ChooseRoomScreen" style="display: none;">
         <div class="join-room-container">
@@ -26,14 +38,16 @@
             <input type="text" placeholder="Room ID" id="room-id-input">
             <button id="join-room-button" onclick="
                 if (getRoomId()){
-                    changeScreen('ChooseRoomScreen', 'CanvasScreen');
+                    joinRoom();
+                    // changeScreen('ChooseRoomScreen', 'CanvasScreen');
                 }
             ">Join</button>
         </div>
         <div class="create-room-container">
             <h1>Create Room</h1>
             <button id="create-room-button" onclick="
-                changeScreen('ChooseRoomScreen', 'CanvasScreen');
+                createRoom();
+                // changeScreen('ChooseRoomScreen', 'CanvasScreen');
             ">Create</button>
         </div>
 
