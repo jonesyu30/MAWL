@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welcome to MAWL</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="utils.js"></script>
 </head>
 <body>
     <div class="container" id="WelcomeScreen">
@@ -12,16 +13,28 @@
         <p>~~ where you Make Art With <span style='color: #ff8c00;'>LOVE</span> ~~</p>
         <div class="input-container">
             <input type="text" placeholder="Input Name" id="name-input">
-            <button id="ok-button">Okayy</button>
+            <button id="ok-button" onclick="
+                if (getName()){
+                    changeScreen('WelcomeScreen', 'ChooseRoomScreen');
+                }
+            ">Okayy</button>
         </div>
     </div>
-    <div class="container" id="CanvasScreen" style="display: none;">
-        <div class="canvas-container">
-            <canvas id="canvas"></canvas>
+    <div class="container" id="ChooseRoomScreen" style="display: none;">
+        <div class="join-room-container">
+            <h1>Join Room</h1>
+            <input type="text" placeholder="Room ID" id="room-id-input">
+            <button id="join-room-button" onclick="
+                if (getRoomId()){
+                    changeScreen('ChooseRoomScreen', 'CanvasScreen');
+                }
+            ">Join</button>
         </div>
-        <div class="tools-container">
-            <button id="clear-button">Clear</button>
-            <button id="save-button">Save</button>
+        <div class="create-room-container">
+            <h1>Create Room</h1>
+            <button id="create-room-button" onclick="
+                changeScreen('ChooseRoomScreen', 'CanvasScreen');
+            ">Create</button>
         </div>
 
     </div>
