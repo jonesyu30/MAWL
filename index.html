@@ -7,13 +7,23 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
+    <div class="container" id="WelcomeScreen">
         <h1>Welcome to M.A.W.L.</h1>
         <p>~~ where you Make Art With <span style='color: #ff8c00;'>LOVE</span> ~~</p>
         <div class="input-container">
             <input type="text" placeholder="Input Name" id="name-input">
             <button id="ok-button">Okayy</button>
         </div>
+    </div>
+    <div class="container" id="CanvasScreen" style="display: none;">
+        <div class="canvas-container">
+            <canvas id="canvas"></canvas>
+        </div>
+        <div class="tools-container">
+            <button id="clear-button">Clear</button>
+            <button id="save-button">Save</button>
+        </div>
+
     </div>
 </body>
 </html>
