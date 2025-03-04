@@ -45,16 +45,36 @@
             <button id="join-room-button" onclick="
                 if (getRoomId()){
                     joinRoom();
-                    // changeScreen('ChooseRoomScreen', 'CanvasScreen');
                 }
             ">Join</button>
         </div>
         <div class="create-room-container">
             <h1>Create Room</h1>
             <button id="create-room-button" onclick="
+                changeScreen('ChooseRoomScreen', 'HostingScreen');
+                document.getElementById('room-id').innerText = getRoomID();
             ">Create</button>
         </div>
-
+    </div>
+    <div class="container" id="HostingScreen" style="display: none;">
+        <div class="host-container">
+            <h1>Room ID: <span id="room-id"></span></h1>
+            <button id="leave-room-button" onclick="
+                changeScreen('HostingScreen', 'ChooseRoomScreen');
+            ">Leave Room</button>
+            <!--
+            add the list to show user name that have connected
+            then choose to kick it or start game. 
+            -->
+        </div>
+    </div>
+    <div class="container" id="JoinedScreen" style="display: none;">
+        <div class="join-container">
+            <h1>Room ID: <span id="room-id"></span></h1>
+            <button id="leave-room-button" onclick="
+                leaveRoom();
+            ">Leave Room</button>
+        </div>
     </div>
 </body>
 </html>

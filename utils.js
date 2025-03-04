@@ -20,8 +20,9 @@ function getName(name){
     }
 }
 
-function createRoom(){
+function getRoomID(){
+    var roomID = ID;
+    return roomID;
 }
 function joinRoom(){
-
 }
