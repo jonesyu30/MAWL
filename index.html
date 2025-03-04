@@ -22,8 +22,14 @@
                 (async()=>{
                     if (getName()){
                         changeScreen('WelcomeScreen', 'LoadingScreen');
-                        await createPeer();
-                        changeScreen('LoadingScreen', 'ChooseRoomScreen');
+                        try {
+                            await createPeer();
+                            changeScreen('LoadingScreen', 'ChooseRoomScreen');
+                        } catch (error) {
+                            console.error(error);
+                            alert('Error creating client. Please try again later.');
+                            changeScreen('LoadingScreen', 'WelcomeScreen');
+                        }
                     }
                 })()
             ">Okayy</button>
@@ -46,8 +52,6 @@
         <div class="create-room-container">
             <h1>Create Room</h1>
             <button id="create-room-button" onclick="
-                createRoom();
-                // changeScreen('ChooseRoomScreen', 'CanvasScreen');
             ">Create</button>
         </div>
 
