@@ -15,7 +15,9 @@ async function createPeer() {
         });
         peer.on('connection', function(connection) {
             conn = connection;
-            initConnection(conn);
+            conn.on('open', function() {
+                initConnection(conn);
+            });
         });
         peer.on('error', function(err) {
             reject(err);
@@ -39,6 +41,7 @@ async function connectToPeer(peerId) {
 }
 
 function initConnection(conn){
+    console.log("Connection established");
     conn.on('data', function(data) {
         console.log('Received', data);
         if(data.type == 'message'){
