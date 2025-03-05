@@ -32,7 +32,7 @@ async function connectToPeer(peerId) {
             resolve(conn);
         });
         peer.on('error', function(err) {
-            console.error('Error connecting to peer:', err);
+            conn.close();
             reject(err);
         });
     });
