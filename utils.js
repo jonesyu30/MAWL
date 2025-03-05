@@ -1,3 +1,5 @@
+var roomSuffix = "-MAWL"
+
 function changeScreen(fromDiv, toDiv) {
     // Hide the current screen
     var screen = document.getElementById(fromDiv);
