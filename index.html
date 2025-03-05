@@ -43,33 +43,38 @@
             <h1>Join Room</h1>
             <input type="text" placeholder="Room ID" id="room-id-input">
             <button id="join-room-button" onclick="(async()=>{
-                var roomID = document.getElementById('room-id-input').value;
+                var roomID = document.getElementById('room-id-input').value.toUpperCase();
                 if (roomID){
                     try{
                         var joinedID = await joinRoom(roomID);
                     }catch{
+                        if (roomID == 'ASDASD'){// for debuggin purpose
+                            document.getElementById('joined-room-id').innerText = roomID;
+                            changeScreen('ChooseRoomScreen', 'JoinedScreen');
+                            return;
+                        }
                         alert('Error joining room. Please try again later.');
                         return;
                     }
-                    document.getElementById('room-id').innerText = joinedID;
+                    document.getElementById('joined-room-id').innerText = joinedID;
                     changeScreen('ChooseRoomScreen', 'JoinedScreen');
                 }else{
                     alert('Please input room ID');
                 }
-            })()
+            })();
             ">Join</button>
         </div>
         <div class="create-room-container">
             <h1>Create Room</h1>
             <button id="create-room-button" onclick="
                 changeScreen('ChooseRoomScreen', 'HostingScreen');
-                document.getElementById('room-id').innerText = getRoomID();
+                document.getElementById('created-room-id').innerText = getRoomID();
             ">Create</button>
         </div>
     </div>
     <div class="container" id="HostingScreen" style="display: none;">
         <div class="host-container">
-            <h1>Your Room ID: <span id="room-id"></span></h1>
+            <h1>Your Room ID: <span id="created-room-id"></span></h1>
             <button id="leave-room-button" onclick="
                 changeScreen('HostingScreen', 'ChooseRoomScreen');
             ">Leave Room</button>
@@ -81,7 +86,7 @@
     </div>
     <div class="container" id="JoinedScreen" style="display: none;">
         <div class="join-container">
-            <h1>You have joined: <span id="room-id"></span></h1>
+            <h1>You have joined: <span id="joined-room-id"></span></h1>
             <button id="leave-room-button" onclick="
                 changeScreen('JoinedScreen', 'ChooseRoomScreen');
             ">Leave Room</button>
