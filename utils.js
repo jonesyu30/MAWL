@@ -24,5 +24,8 @@ function getRoomID(){
     var roomID = ID;
     return roomID;
 }
-function joinRoom(){
+async function joinRoom(id){
+    var conn =  await connectToPeer(id);
+    console.log(conn.peer);
+    return conn.peer;
 }
