@@ -3,10 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to MAWL</title>
+    <title>M.A.W.L.</title>
+
+    <!-- Import CSS Files -->
     <link rel="stylesheet" href="styles.css">
+
+    <!-- Import JS Files -->
     <script src="utils.js"></script>
     <script src="peerFunctions.js"></script>
+
+    <!-- PeerJS Import -->
     <script type="module">
         import {Peer} from "https://esm.sh/peerjs@1.5.4?bundle-deps"
         window.Peer = Peer;
@@ -21,6 +27,7 @@
             <button id="ok-button" onclick="
                 (async()=>{
                     if (getName()){
+                        document.getElementById('loading-status').innerHTML = 'Creating client...';
                         changeScreen('WelcomeScreen', 'LoadingScreen');
                         try {
                             await createPeer();
@@ -36,7 +43,7 @@
         </div>
     </div>
     <div class="container" id="LoadingScreen" style="display: none;">
-        <h1>Creating client...</h1>
+        <h1 id="loading-status">Creating client...</h1>
     </div>
     <div class="container" id="ChooseRoomScreen" style="display: none;">
         <div class="join-room-container">
@@ -45,19 +52,22 @@
             <button id="join-room-button" onclick="(async()=>{
                 var roomID = document.getElementById('room-id-input').value.toUpperCase();
                 if (roomID){
+                    document.getElementById('loading-status').innerHTML = 'Joinning room...';
+                    changeScreen('ChooseRoomScreen', 'LoadingScreen');
                     try{
                         var joinedID = await joinRoom(roomID);
                     }catch{
                         if (roomID == 'ASDASD'){// for debuggin purpose
                             document.getElementById('joined-room-id').innerText = roomID;
-                            changeScreen('ChooseRoomScreen', 'JoinedScreen');
+                            changeScreen('LoadingScreen', 'JoinedScreen');
                             return;
                         }
                         alert('Error joining room. Please try again later.');
+                        changeScreen('LoadingScreen', 'ChooseRoomScreen');
                         return;
                     }
                     document.getElementById('joined-room-id').innerText = joinedID;
-                    changeScreen('ChooseRoomScreen', 'JoinedScreen');
+                    changeScreen('LoadingScreen', 'JoinedScreen');
                 }else{
                     alert('Please input room ID');
                 }
@@ -91,6 +101,10 @@
                 changeScreen('JoinedScreen', 'ChooseRoomScreen');
             ">Leave Room</button>
         </div>
+    </div>
+    <div class="container" id="CanvasScreen" style="display: none;">
+        <h1>Game Screen</h1>
+        <canvas id="draw-canvas"></canvas>
     </div>
 </body>
 </html>
