@@ -31,6 +31,10 @@ async function connectToPeer(peerId) {
         const conn = peer.connect(peerId + roomSuffix);
         conn.on('open', function() {
             console.log('Connected to: ' + peerId);
+            conn.send({
+                type: 'init',
+                name: NAME
+            })
             resolve(conn);
         });
         peer.on('error', function(err) {
@@ -49,6 +53,10 @@ function initConnection(conn){
             var name = data.name;
             var time = data.time;
             addMessage(msg, name, time);
+        }
+        if(data.type == 'init'){
+            var name = data.name;
+            addParticipant(name);
         }
     });
 }

@@ -32,3 +32,9 @@ async function joinRoom(id){
     console.log(conn.peer);
     return id;
 }
+function addParticipant(name){
+    var ul = document.getElementById("participants-list");
+    var li = document.createElement("li");
+    li.appendChild(document.createTextNode(name));
+    ul.appendChild(li);
+}
