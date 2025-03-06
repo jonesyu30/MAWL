@@ -34,7 +34,10 @@ async function joinRoom(id){
 }
 function addParticipant(name){
     var ul = document.getElementById("participants-list");
+    var button = document.createElement("button");
+    button.className = "namelist-button";
+    button.appendChild(document.createTextNode(name));
     var li = document.createElement("li");
-    li.appendChild(document.createTextNode(name));
+    li.appendChild(button);
     ul.appendChild(li);
 }
