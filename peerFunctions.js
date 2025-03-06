@@ -41,7 +41,7 @@ async function connectToPeer(peerId) {
 }
 
 function initConnection(conn){
-    console.log("Connection established");
+    console.log("Connection established with: ", conn.peer);
     conn.on('data', function(data) {
         console.log('Received', data);
         if(data.type == 'message'){

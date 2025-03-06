@@ -89,9 +89,15 @@
                 changeScreen('HostingScreen', 'ChooseRoomScreen');
             ">Leave Room</button>
             <!--
-            add the list to show user name that have connected
-            then choose to kick it or start game. 
+            add the list to show user name that have connected, then, let user choose who to start game with. 
             -->
+            <div class="participants-list">
+                <h2>People joined: </h2>
+                <ul id="participants-list">
+                    <li>Participant 1</li>
+                    <li>Participant 2</li>
+                </ul>
+            </div>
         </div>
     </div>
     <div class="container" id="JoinedScreen" style="display: none;">

@@ -22,10 +22,15 @@ h1 {
     margin-bottom: 10px;
 }
 
-p {
+p{
     color: #ff6f91;
     font-size: 1.2em;
     margin-bottom: 20px;
+}
+h2{
+    margin-top: 50px;
+    color: #ff6f91;
+    font-size: 1.2em;
 }
 
 .input-container {
@@ -56,4 +61,12 @@ button {
 
 button:hover {
     background-color: #ff8aaa;
+}
+
+ul{
+    list-style-type: none;
+    padding: 0;
+    color: #ff6f91;
+    font-size: 1.2em;
+    margin-bottom: 20px;
 }
