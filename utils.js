@@ -32,10 +32,17 @@ async function joinRoom(id){
     console.log(conn.peer);
     return id;
 }
-function addParticipant(name){
+function addParticipant(conn, name){
     var ul = document.getElementById("participants-list");
     var button = document.createElement("button");
     button.className = "namelist-button";
+    button.onclick = function(){
+        conn.send({
+            type: 'confirm',
+            name: NAME
+        });
+        startGame(conn);
+    }
     button.appendChild(document.createTextNode(name));
     var li = document.createElement("li");
     li.appendChild(button);

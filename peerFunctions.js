@@ -29,6 +29,7 @@ async function connectToPeer(peerId) {
     console.log('Attempting to connect to peer:', peerId + roomSuffix);
     return new Promise((resolve, reject) => {
         const conn = peer.connect(peerId + roomSuffix);
+        initConnection(conn);
         conn.on('open', function() {
             console.log('Connected to: ' + peerId);
             conn.send({
@@ -48,15 +49,19 @@ function initConnection(conn){
     console.log("Connection established with: ", conn.peer);
     conn.on('data', function(data) {
         console.log('Received', data);
+        if(data.type == 'confirm'){
+            var name = data.name;
+            startGame(conn);
+        }
+        if(data.type == 'init'){
+            var name = data.name;
+            addParticipant(conn, name);
+        }
         if(data.type == 'message'){
             var msg = data.message;
             var name = data.name;
             var time = data.time;
             addMessage(msg, name, time);
-        }
-        if(data.type == 'init'){
-            var name = data.name;
-            addParticipant(name);
         }
     });
 }
