@@ -60,7 +60,8 @@
                     }catch{
                         if (roomID == 'ASDASD'){// for debuggin purpose
                             document.getElementById('joined-room-id').innerText = roomID;
-                            changeScreen('LoadingScreen', 'JoinedScreen');
+                            changeScreen('LoadingScreen', 'CanvasScreen');
+                            startGame();
                             return;
                         }
                         alert('Error joining room. Please try again later.');
@@ -109,7 +110,7 @@
     </div>
     <div class="container" id="CanvasScreen" style="display: none;">
         <h1>Game Screen</h1>
-        <canvas id="draw-canvas"></canvas>
+        <canvas width="200" height="200" id="draw-canvas" style="outline: solid;"></canvas>
     </div>
 </body>
 </html>

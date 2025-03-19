@@ -57,11 +57,5 @@ function initConnection(conn){
             var name = data.name;
             addParticipant(conn, name);
         }
-        if(data.type == 'message'){
-            var msg = data.message;
-            var name = data.name;
-            var time = data.time;
-            addMessage(msg, name, time);
-        }
     });
 }
