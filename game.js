@@ -47,7 +47,6 @@ function startGame(conn){
 
         lineEnd.x = event.layerX;
         lineEnd.y = event.layerY;
-        console.log(event)
         ctx.lineTo(lineEnd.x, lineEnd.y);
         ctx.stroke();
         conn.send({
