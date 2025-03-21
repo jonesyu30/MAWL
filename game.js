@@ -29,8 +29,8 @@ function startGame(conn){
     canvas.addEventListener('mousedown', (event) => {
         drawing = true;
         ctx.beginPath();
-        lineStart.x = event.clientX - canvas.offsetLeft;
-        lineStart.y = event.clientY - canvas.offsetTop;
+        lineStart.x = event.layerX;
+        lineStart.y = event.layerY;
         ctx.moveTo(lineStart.x, lineStart.y);
     });
 
@@ -45,8 +45,9 @@ function startGame(conn){
         ctx.lineCap = 'round';
         ctx.strokeStyle = '#000';
 
-        lineEnd.x = event.clientX - canvas.offsetLeft;
-        lineEnd.y = event.clientY - canvas.offsetTop;
+        lineEnd.x = event.layerX;
+        lineEnd.y = event.layerY;
+        console.log(event)
         ctx.lineTo(lineEnd.x, lineEnd.y);
         ctx.stroke();
         conn.send({
@@ -56,14 +57,18 @@ function startGame(conn){
         });
 
         ctx.beginPath();
-        lineStart.x = event.clientX - canvas.offsetLeft;
-        lineStart.y = event.clientY - canvas.offsetTop;
+        lineStart.x = event.layerX;
+        lineStart.y = event.layerY;
         ctx.moveTo(lineStart.x, lineStart.y);
     });
     // Support touch devices
     canvas.addEventListener('touchstart', (event) => {
         drawing = true;
         ctx.beginPath();
+        const touch = event.touches[0];
+        lineStart.x = touch.clientX - canvas.offsetLeft;
+        lineStart.y = touch.clientY - canvas.offsetTop;
+        ctx.moveTo(lineStart.x, lineStart.y);
         event.preventDefault();
     });
 
@@ -73,12 +78,28 @@ function startGame(conn){
     });
 
     canvas.addEventListener('touchmove', (event) => {
-        if (!drawing) return;
-        const touch = event.touches[0];
-        ctx.lineTo(touch.clientX - canvas.offsetLeft, touch.clientY - canvas.offsetTop);
-        ctx.stroke();
-        ctx.beginPath();
-        ctx.moveTo(touch.clientX - canvas.offsetLeft, touch.clientY - canvas.offsetTop);
         event.preventDefault();
+        if (!drawing) return;
+        ctx.lineWidth = 5;
+        ctx.lineCap = 'round';
+        ctx.strokeStyle = '#000';
+
+        const touch = event.touches[0];
+        
+        lineEnd.x = touch.clientX - canvas.offsetLeft;
+        lineEnd.y = touch.clientY - canvas.offsetTop;
+        ctx.lineTo(lineEnd.x, lineEnd.y);
+
+        ctx.stroke();
+        conn.send({
+            type: 'draw',
+            lineStart: lineStart,
+            lineEnd: lineEnd
+        });
+
+        ctx.beginPath();
+        lineStart.x = touch.clientX - canvas.offsetLeft;
+        lineStart.y = touch.clientY - canvas.offsetTop;
+        ctx.moveTo(lineStart.x, lineStart.y);
     });
 }
