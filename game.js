@@ -1,5 +1,6 @@
 function startGame(conn){
 
+
     console.log("Starting game with: ", conn);
     changeScreen('JoinedScreen', 'CanvasScreen');
     changeScreen('HostingScreen', 'CanvasScreen');
@@ -8,11 +9,29 @@ function startGame(conn){
     ctx = canvas.getContext('2d');
 
     let drawing = false;
+    var lineStart = {x: 0, y: 0};
+    var lineEnd = {x: 0, y: 0};
+
+    conn.on('data', function(data) {
+        console.log('Received', data);
+        if(data.type == 'draw'){
+            ctx.lineWidth = 5;
+            ctx.lineCap = 'round';
+            ctx.strokeStyle = '#000';
+            ctx.beginPath();
+            ctx.moveTo(data.lineStart.x, data.lineStart.y);
+            ctx.lineTo(data.lineEnd.x, data.lineEnd.y);
+            ctx.stroke();
+            ctx.closePath();
+        }
+    });
 
     canvas.addEventListener('mousedown', (event) => {
         drawing = true;
         ctx.beginPath();
-        ctx.moveTo(event.clientX - canvas.offsetLeft, event.clientY - canvas.offsetTop);
+        lineStart.x = event.clientX - canvas.offsetLeft;
+        lineStart.y = event.clientY - canvas.offsetTop;
+        ctx.moveTo(lineStart.x, lineStart.y);
     });
 
     canvas.addEventListener('mouseup', () => {
@@ -26,10 +45,20 @@ function startGame(conn){
         ctx.lineCap = 'round';
         ctx.strokeStyle = '#000';
 
-        ctx.lineTo(event.clientX - canvas.offsetLeft, event.clientY - canvas.offsetTop);
+        lineEnd.x = event.clientX - canvas.offsetLeft;
+        lineEnd.y = event.clientY - canvas.offsetTop;
+        ctx.lineTo(lineEnd.x, lineEnd.y);
         ctx.stroke();
+        conn.send({
+            type: 'draw',
+            lineStart: lineStart,
+            lineEnd: lineEnd
+        });
+
         ctx.beginPath();
-        ctx.moveTo(event.clientX - canvas.offsetLeft, event.clientY - canvas.offsetTop);
+        lineStart.x = event.clientX - canvas.offsetLeft;
+        lineStart.y = event.clientY - canvas.offsetTop;
+        ctx.moveTo(lineStart.x, lineStart.y);
     });
     // Support touch devices
     canvas.addEventListener('touchstart', (event) => {
