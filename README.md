@@ -1,3 +1,11 @@
+<div align="center">
+    <img src="https://github.com/jonesyu30/MAWL/blob/main/assets/08a69412-dd0d-46e1-aae4-36f4e3088e47.sketchpad-2.png" alt="M.A.W.L. Logo" width="500" />
+</div>
+
+<div align="center">
+    <h1>Where you make art with LOVE.</h1>
+</div>
+
 # M.A.W.L.
 
 Welcome to M.A.W.L. - Make Art With LOVE!  
