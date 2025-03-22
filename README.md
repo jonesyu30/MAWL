@@ -2,6 +2,11 @@
     <img src="https://github.com/jonesyu30/MAWL/blob/main/assets/08a69412-dd0d-46e1-aae4-36f4e3088e47.sketchpad-2.png" alt="M.A.W.L. Logo" width="500" />
 </div>
 
+<div align="center">
+    <p>A platform for couples to collaborate and create art with LOVE.</p>
+    <a href="https://jonesyu30.github.io/MAWL/" target="_blank" style="display: inline-block; padding: 10px 20px; font-size: 16px; color: white; background-color: #007BFF; text-decoration: none; border-radius: 5px;">Get Started</a>
+</div>
+
 # M.A.W.L.
 
 Welcome to M.A.W.L. - Make Art With LOVE!  
